@@ -1,0 +1,69 @@
+{% extends 'profile.html' %}
+
+
+{% block form_profile_edit %}
+
+     <div class="container">
+        <hr>
+        <div class="row">
+            <div class="col-9">
+                <form method="POST" action="" class="border p-4 mt-2" enctype="multipart/form-data">
+                    {{ form.csrf_token }}
+                    <legend> Edit Profile</legend>
+                    <fieldset>
+                        <div class="form-group">
+                            {{ form.username.label(class=("form-control-label")) }}
+                            {% if form.username.errors %}
+                                {{ form.username(class=("form-control is-invalid")) }}
+                                <div class="invalid-feedback">
+                                    {% for erro in form.username.errors %}
+                                        {{ erro }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.username(class=("form-control")) }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form.email.label(class=("form-control-label")) }}
+                            {% if form.email.errors %}
+                                {{ form.email(class=("form-control is-invalid")) }}
+                                <div class="invalid-feedback">
+                                    {% for erro in form.email.errors %}
+                                        {{ erro }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.email(class=("form-control")) }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form.profile_picture.label }}
+                            {{ form.profile_picture(class="form-control-file") }}
+                            {% if form.profile_picture.errors %}
+                                {% for erro in form.profile_picture.errors %}
+                            <span class="text-danger">{{ erro }}</span><br>
+                                {% endfor %}
+                            {% endif %}
+                         </div>
+                        <hr>
+                        <p>Games</p>
+                        {% for campo in form %}
+                            {% if 'button_' in campo.name %}
+                                 <div class="form-group">
+                                     {{ campo(class="form-check-input") }}
+                                     {{ campo.label(class="form-check-label") }}
+                                 </div>
+                            {% endif %}
+                        {% endfor %}
+
+
+                    </fieldset>
+                    {{ form.confirm_button(class="btn btn-primary mt-2") }}
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
